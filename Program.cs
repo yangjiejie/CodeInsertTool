@@ -22,7 +22,7 @@ class Program
 
     static string getXXXGameLogicDotH(string part)
     {
-        string str = "    virtual void on" + part + "(Player* pPlayer, const void* data, size_t len);";
+        string str = "    virtual void on" + gameType +part + "(Player* pPlayer, const void* data, size_t len);";
         return str;
     }
     
@@ -39,24 +39,24 @@ class Program
 
     static string getGameLogicDotHString(string part)
     {
-        string str = "    virtual void on" + part + "(Player* pPlayer, const void* data, size_t len) {}";
+        string str = "    virtual void on" +gameType +part + "(Player* pPlayer, const void* data, size_t len) {}";
         return str;
     }
 
     static string getRoomDotHString(string part)
     {
-        string str = "    void on" + part + "(Player* pPlayer,const void* data,size_t len);";
+        string str = "    void on" + gameType +part + "(Player* pPlayer,const void* data,size_t len);";
         return str;
     }
 
     static string getRoomCppString(string part)
     {
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine("void Room::on" + part + "(Player* pPlayer,const void* data,size_t len)");
+        sb.AppendLine("void Room::on" + gameType +part + "(Player* pPlayer,const void* data,size_t len)");
         sb.AppendLine("{");
         sb.AppendLine("    IF_NOT_RETURN(NULL != m_pGameLogic);");
         sb.AppendLine("    IF_NOT_RETURN(pPlayer != NULL);");
-        sb.AppendLine("    m_pGameLogic->on"+part + "(pPlayer, data,len);");
+        sb.AppendLine("    m_pGameLogic->on"+ gameType +part + "(pPlayer, data,len);");
         sb.AppendLine("}");
 
         return sb.ToString();
@@ -65,13 +65,13 @@ class Program
 
     static string getRoomMsgCppHandleString()
     {
-        return "    RegMsgHandler("+ msgId+ " ,    &RoomMessage::MH_Room_" + partFunName +");";
+        return "    RegMsgHandler("+ msgId+ " ,    &RoomMessage::MH_Room_" + gameType +partFunName +");";
     }
 
     static string getRoomMsgCppCodeString()
     {
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine("void RoomMessage::MH_Room_" + partFunName + "(Entity* entity, const void* data, size_t len)");
+        sb.AppendLine("void RoomMessage::MH_Room_" + gameType +partFunName + "(Entity* entity, const void* data, size_t len)");
         sb.AppendLine("{");
         sb.AppendLine("    IF_NOT_RETURN(entity != NULL && data != NULL);");
         sb.AppendLine("    IF_NOT_RETURN(IsPlayer(entity));");
@@ -79,14 +79,14 @@ class Program
         sb.AppendLine("    IF_NOT_RETURN(NULL != pPlayer);");
         sb.AppendLine("    Room* pRoom = pPlayer->getCurRoom();");
         sb.AppendLine("    IF_NOT_RETURN(NULL != pRoom);");
-        sb.AppendLine("    pRoom->on" + partFunName + "(pPlayer, data, len);");
+        sb.AppendLine("    pRoom->on" + gameType +partFunName + "(pPlayer, data, len);");
         sb.AppendLine("}");
         return sb.ToString();
     }
 
     static string getRoomMsgDotHFile(string part)
     {
-        return "    static void MH_Room_"+part+"(Entity* entity, const void* data, size_t len);";
+        return "    static void MH_Room_"+ gameType +part+"(Entity* entity, const void* data, size_t len);";
     }
 
 
@@ -121,10 +121,10 @@ class Program
         
     }
 
-    static string msgId = "MsgId_Fish_DeleteFish";
-    static string gameType = "FishGame";
+    static string msgId = "MsgId_Bool_IsLoading";
+    static string gameType = "BoolGame";
     static string partFunName = "";
-    static string logicServerPath = "";
+    static string logicServerPath = @"E:\newHallCode\src\server\LogicServer";
 
     static void Main(string[] args)
     {
