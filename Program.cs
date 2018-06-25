@@ -29,7 +29,7 @@ class Program
     static string getXXXGameLogicCpp(string part,string gameType)
     {
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine("void " + gameType +"Logic::on"+part+"(Player* pPlayer, const void* data, size_t len)");
+        sb.AppendLine("void " + gameType +"Logic::on"+ gameType +part+"(Player* pPlayer, const void* data, size_t len)");
         sb.AppendLine("{");
         sb.AppendLine("    IF_NOT_RETURN(pPlayer != NULL );");
         sb.AppendLine("    IF_NOT_RETURN(data != NULL);");
