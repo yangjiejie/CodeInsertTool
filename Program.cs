@@ -135,6 +135,12 @@ class Program
             msgId = args[1];
             logicServerPath = args[2];
         }
+        else
+        {
+            Console.WriteLine("不能单独运行该exe程序需要传入3个参数 ");
+            Console.ReadKey();
+            return;
+        }
         consturctPartFunName();
         for(int i  =0 ; i < args.Length; i++)
         {

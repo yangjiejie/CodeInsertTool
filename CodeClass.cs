@@ -16,26 +16,25 @@ public class CodeClass
         m_lines = lines;
         tag = "\\["+cData.gameType+"]";
     }
-    public bool HasTag(string line)
+    public bool HasTag(string line,string tag)
     {
         bool hastag = false;
         for(int i = 0; i < line.Length; i++)
         {
+            
             if(line[i] == '/' && (i+2) <line.Length && line[i+1] == '/' && line[i+2] == '[')
             {
-               
-               for(int j = 0; j < tag.Length; j++)
+               if(line.Contains(tag))
                {
-                   if(line[i+j] != tag[j])
-                   {
-                       hastag = false;
-                       break;
-                   }
+                   return true;
                }
-               hastag = true;
+               else
+               {
+                   return false;
+               }
             }
         }
-        return hastag;
+        return false;
     }
     public void WriteInFile()
     {
@@ -47,7 +46,7 @@ public class CodeClass
 
             //如果有标签 \\[GameType] 则 
 
-            if (HasTag(m_lines[i]))
+            if (HasTag(m_lines[i],m_cData.gameType))
             {
                 string tmpStr = m_cData.codeString[m_cData.curWriteIndex];
                 if(tmpStr.Contains('\r') && tmpStr.Contains('\n'))
